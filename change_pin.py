@@ -1,6 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 import time
 import os
 
@@ -27,8 +30,14 @@ try:
     time.sleep(3)
 
     # Step 2: Click "Settings" tab
-    driver.find_element(By.XPATH, "//div[text()='Settings']").click()
-    time.sleep(1)
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
+
+    # Wait up to 10 seconds for the "Settings" tab to appear
+    wait = WebDriverWait(driver, 10)
+    settings_tab = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[text()='Settings']")))
+    settings_tab.click()
+
 
     # Step 3: Click "Pin Change" tile
     driver.find_element(By.XPATH, "//div[contains(text(), 'Pin Change')]").click()
